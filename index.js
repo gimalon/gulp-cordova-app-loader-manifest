@@ -2,6 +2,8 @@
 
 var Stream = require('stream');
 var gutil = require('gulp-util');
+var slash = require('slash');
+
 
 var PLUGIN_NAME = 'gulp-cordova-app-loader-manifest';
 
@@ -36,7 +38,8 @@ var calManifest = function calManifest(options) {
         }
 
         var hasher = require('crypto').createHash('sha256');
-        var filename = encodeURI(file.relative);
+        var filename = slash(file.relative);
+        filename = encodeURI(filename);
         var key = filename.replace(/\//g, '_');
         manifest.files[key] = {
             filename: filename,
